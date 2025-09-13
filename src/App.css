@@ -1,0 +1,83 @@
+.full-screen {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+
+  /* Center content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px);
+  z-index: 1;
+}
+
+/* Logo */
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 36px;
+  font-weight: bold;
+  color: white;
+  z-index: 2;
+}
+
+/* Calculator window card */
+.calculator-card {
+  position: relative;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.7); /* semi-transparent dark */
+  padding: 30px 40px;
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+  width: 350px;
+  max-width: 90%;
+  /* Centered by flexbox of parent, so no need for margin auto */
+}
+
+.form-group {
+  margin: 15px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input,
+select {
+  padding: 8px;
+  margin-top: 5px;
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+  font-weight: bold;
+}
+
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+}
+
+.results {
+  margin-top: 20px;
+  text-align: left;
+}
