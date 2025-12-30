@@ -118,7 +118,7 @@ const packageData = [
   { "Packages": "F0002", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
   { "Packages": "F0003", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
   { "Packages": "F0004", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
-  { "Packages": "FAMIL", "ACF": 820, "BUCD": 3280, "RentalExcludeTax": 4100, "ACFPercent": 0.2, "BUCDPercent": 0.8 },
+  { "Packages": "FAMIL", "ACF": 820, "BUCD": 3280, "RentalExcludeTax": 4900, "ACFPercent": 0.2, "BUCDPercent": 0.8 },
   { "Packages": "FD001", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
   { "Packages": "FD002", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
   { "Packages": "FD003", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
