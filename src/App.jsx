@@ -374,7 +374,7 @@ function App() {
                     <p>Availabl New Activation: {pkg.Available_New_Activation || "-"}</p>
                     <p>Free Voice Bundle: {pkg.Free_Voice_Bundle  || "-"}</p>
                     <p>Free SMS Bundle: {pkg.Free_SMS_Bundle  || "-"}</p>
-                    <p>Free Dta Bundle: {pkg.Free_Dta_Bundle  || "-"}</p>
+                    <p>Free Data Bundle: {pkg.Free_Dta_Bundle  || "-"}</p>
                     <p>PCRF: {pkg.PCRF  || "-"}</p>
                     <p>Voice Rate M2M: {pkg.Voice_Rate_M2M || "-"}</p>
                     <p>Voice Rate M2O: {pkg.Voice_Rate_M2O || "-"}</p>
