@@ -210,7 +210,8 @@ const packageData = [
   { "Packages": "Z0250", "ACF": 0, "BUCD": 23988, "RentalExcludeTax": 23988, "ACFPercent": null, "BUCDPercent": 1.0 },
   { "Packages": "ZDATA", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
   { "Packages": "ZM001", "ACF": 0, "BUCD": 475, "RentalExcludeTax": 475, "ACFPercent": null, "BUCDPercent": 1.0 },
-  { "Packages": "ZMLRN", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null }
+  { "Packages": "ZMLRN", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
+  { "Packages": "FYMWP", "ACF": 27, "BUCD": 1003.81, "RentalExcludeTax": 1030.81, "ACFPercent": 0.3, "BUCDPercent": 0.97 }
 
 ];
 
