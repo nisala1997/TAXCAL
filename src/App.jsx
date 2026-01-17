@@ -250,12 +250,20 @@ function App() {
   });
 
   /* ================= FETCH BACKEND DATA ================= */
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/packages") // make sure backend port is correct
-      .then((res) => setFetchedPackage(res.data))
-      .catch((err) => console.error("Failed to fetch packages:", err));
-  }, []);
+  // Fetch backend data once
+
+   useEffect(() => {
+  const fetchPackages = async () => {
+    try {
+      const response = await axios.get("https://backend-nameless-sea-7435.fly.dev/api/packages");
+      console.log("Fetched packages from DB:", response.data);
+      setFetchedPackage(response.data);
+    } catch (err) {
+      console.error("Failed to fetch packages:", err);
+    }
+  };
+  fetchPackages();
+}, []);
 
   /* ================= LEFT CALCULATION ================= */
   const handleLeftView = () => {
