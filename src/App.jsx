@@ -336,7 +336,7 @@ function App() {
       <div className="main-container">
         {/* LEFT SIDE */}
         <div className="calculator-card">
-          <h2>LOOKUP ENGINE</h2>
+          <h2>LOOKUP</h2>
           <label>Package Code</label>
           <input
             type="text"
@@ -428,10 +428,10 @@ function App() {
 
         {/* SEARCH CARD */}
         <div className="calculator-card search-card">
-          <h2>SEARCH PACKAGES</h2>
+          <h2>SEARCH DETAILS</h2>
           <input
             type="text"
-            placeholder="Search packages..."
+            placeholder="Search"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{ padding: "10px", width: "100%", marginBottom: "15px", fontSize: "16px" }}
