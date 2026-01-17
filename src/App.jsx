@@ -216,6 +216,16 @@ const packageData = [
 ];
 
 function App() {
+  /* ================= SEARCH STATE ================= */
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredPackages = fetchedPackage.filter((pkg) =>
+    Object.values(pkg)
+      .join(" ")
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  );
+   
   // LEFT SIDE STATES
   const [packageCode, setPackageCode] = useState("");
   const [leftResults, setLeftResults] = useState({
@@ -438,7 +448,40 @@ function App() {
             <p>Tax Value: {rightResults.taxValue.toFixed(2)}</p>
           </div>
         </div>
-
+ Bundle</th>
+          <th>Free SMS Bundle</th>
+          <th>Free Dta Bundle</th>
+          <th>PCRF</th>
+          <th>Deposit</th>
+        </tr>
+      </thead>
+      <tbody>
+        {filteredPackages.map((pkg) => (
+          <tr key={pkg._id}>
+            <td>{pkg.PKG}</td>
+            <td>{pkg.Decision}</td>
+            <td>{pkg.Type}</td>
+            <td>{pkg.TRC_Approval}</td>
+            <td>{pkg.Available_New_Activation}</td>
+            <td>{pkg.ACF}</td>
+            <td>{pkg.BUCD}</td>
+            <td>{pkg.Rental}</td>
+            <td>{pkg.Voice_Rate_M2M}</td>
+            <td>{pkg.Voice_Rate_M2O}</td>
+            <td>{pkg.SMS_Rate_M2O}</td>
+            <td>{pkg.MMS_Rate}</td>
+            <td>{pkg.Data_Rate}</td>
+            <td>{pkg.Free_Voice_Bundle}</td>
+            <td>{pkg.Free_SMS_Bundle}</td>
+            <td>{pkg.Free_Dta_Bundle}</td>
+            <td>{pkg.PCRF}</td>
+            <td>{pkg.Deposit}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
       </div>
     </div>
   );
