@@ -216,16 +216,6 @@ const packageData = [
 ];
 
 function App() {
-  /* ================= SEARCH STATE ================= */
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const filteredPackages = fetchedPackage.filter((pkg) =>
-    Object.values(pkg)
-      .join(" ")
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase())
-  );
-   
   // LEFT SIDE STATES
   const [packageCode, setPackageCode] = useState("");
   const [leftResults, setLeftResults] = useState({
@@ -448,68 +438,7 @@ function App() {
             <p>Tax Value: {rightResults.taxValue.toFixed(2)}</p>
           </div>
         </div>
-        {/* ================= SEARCH CARD ================= */}
-<div className="calculator-card search-card">
-  <h2>SEARCH PACKAGES</h2>
-  <input
-    type="text"
-    placeholder="Search packages..."
-    value={searchTerm}
-    onChange={(e) => setSearchTerm(e.target.value)}
-    style={{ padding: "10px", width: "100%", marginBottom: "15px", fontSize: "1px" }}
-  />
-
-  <div style={{ overflowX: "auto" }}>
-    <table border="1" cellPadding="6" cellSpacing="0" style={{ width: "100%", fontSize: "14px" }}>
-      <thead>
-        <tr>
-          <th>PKG</th>
-          <th>Decision</th>
-          <th>Type</th>
-          <th>TRC Approval</th>
-          <th>Available New Activation</th>
-          <th>ACF</th>
-          <th>BUCD</th>
-          <th>Rental</th>
-          <th>Voice Rate M2M</th>
-          <th>Voice Rate M2O</th>
-          <th>SMS Rate M2O</th>
-          <th>MMS Rate</th>
-          <th>Data Rate</th>
-          <th>Free Voice Bundle</th>
-          <th>Free SMS Bundle</th>
-          <th>Free Dta Bundle</th>
-          <th>PCRF</th>
-          <th>Deposit</th>
-        </tr>
-      </thead>
-      <tbody>
-        {filteredPackages.map((pkg) => (
-          <tr key={pkg._id}>
-            <td>{pkg.PKG}</td>
-            <td>{pkg.Decision}</td>
-            <td>{pkg.Type}</td>
-            <td>{pkg.TRC_Approval}</td>
-            <td>{pkg.Available_New_Activation}</td>
-            <td>{pkg.ACF}</td>
-            <td>{pkg.BUCD}</td>
-            <td>{pkg.Rental}</td>
-            <td>{pkg.Voice_Rate_M2M}</td>
-            <td>{pkg.Voice_Rate_M2O}</td>
-            <td>{pkg.SMS_Rate_M2O}</td>
-            <td>{pkg.MMS_Rate}</td>
-            <td>{pkg.Data_Rate}</td>
-            <td>{pkg.Free_Voice_Bundle}</td>
-            <td>{pkg.Free_SMS_Bundle}</td>
-            <td>{pkg.Free_Dta_Bundle}</td>
-            <td>{pkg.PCRF}</td>
-            <td>{pkg.Deposit}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-</div>
+      
 
       </div>
     </div>
