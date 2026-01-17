@@ -1,4 +1,3 @@
-//import React, { useState } from "react";
 import backgroundImg from "./image.png";
 import "./App.css";
 import React, { useState, useEffect } from "react";
@@ -7,8 +6,7 @@ import axios from "axios";
 const TAX_A = 0.234956; // BUCD
 const TAX_B = 0.420199; // ACF
 
-
-// PACKAGE DATA
+// HARD-CODED PACKAGE DATA
 const packageData = [
    { "Packages": "499UP", "ACF": 99.8, "BUCD": 399.2, "RentalExcludeTax": 499, "ACFPercent": 0.2, "BUCDPercent": 0.8 },
   { "Packages": "500CO", "ACF": 600, "BUCD": 0, "RentalExcludeTax": 600, "ACFPercent": 1.0, "BUCDPercent": null },
@@ -118,7 +116,7 @@ const packageData = [
   { "Packages": "F0002", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
   { "Packages": "F0003", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
   { "Packages": "F0004", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
-  { "Packages": "FAMIL", "ACF": 820, "BUCD": 3280, "RentalExcludeTax": 4900, "ACFPercent": 0.2, "BUCDPercent": 0.8 },
+  { "Packages": "FAMIL", "ACF": 820, "BUCD": 3280, "RentalExcludeTax": 4100, "ACFPercent": 0.2, "BUCDPercent": 0.8 },
   { "Packages": "FD001", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
   { "Packages": "FD002", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
   { "Packages": "FD003", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
@@ -210,12 +208,14 @@ const packageData = [
   { "Packages": "Z0250", "ACF": 0, "BUCD": 23988, "RentalExcludeTax": 23988, "ACFPercent": null, "BUCDPercent": 1.0 },
   { "Packages": "ZDATA", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
   { "Packages": "ZM001", "ACF": 0, "BUCD": 475, "RentalExcludeTax": 475, "ACFPercent": null, "BUCDPercent": 1.0 },
-  { "Packages": "ZMLRN", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
-  { "Packages": "FYMWP", "ACF": 27, "BUCD": 1003.81, "RentalExcludeTax": 1030.81, "ACFPercent": 0.3, "BUCDPercent": 0.97 }
+  { "Packages": "ZMLRN", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null }
 
 ];
 
 function App() {
+  /* ================= BACKEND DATA ================= */
+  const [fetchedPackage, setFetchedPackage] = useState([]);
+
   /* ================= SEARCH STATE ================= */
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -225,8 +225,8 @@ function App() {
       .toLowerCase()
       .includes(searchTerm.toLowerCase())
   );
-   
-  // LEFT SIDE STATES
+
+  /* ================= LEFT SIDE ================= */
   const [packageCode, setPackageCode] = useState("");
   const [leftResults, setLeftResults] = useState({
     bucd: 0,
@@ -236,7 +236,7 @@ function App() {
     taxValue: 0,
   });
 
-  // RIGHT SIDE STATES
+  /* ================= RIGHT SIDE ================= */
   const [acfPercent, setAcfPercent] = useState("");
   const [bucdPercent, setBucdPercent] = useState("");
   const [inputType, setInputType] = useState("With Tax");
@@ -249,34 +249,23 @@ function App() {
     taxValue: 0,
   });
 
-  // BACKEND DATA FOR DECISION
-  const [fetchedPackage, setFetchedPackage] = useState([]);
+  /* ================= FETCH BACKEND DATA ================= */
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/packages") // make sure backend port is correct
+      .then((res) => setFetchedPackage(res.data))
+      .catch((err) => console.error("Failed to fetch packages:", err));
+  }, []);
 
-  // Fetch backend data once
-
-   useEffect(() => {
-  const fetchPackages = async () => {
-    try {
-      const response = await axios.get("https://backend-nameless-sea-7435.fly.dev/api/packages");
-      console.log("Fetched packages from DB:", response.data);
-      setFetchedPackage(response.data);
-    } catch (err) {
-      console.error("Failed to fetch packages:", err);
-    }
-  };
-  fetchPackages();
-}, []);
-
-  // LEFT SIDE CALCULATION
+  /* ================= LEFT CALCULATION ================= */
   const handleLeftView = () => {
     if (!packageCode.trim()) {
       alert("Enter a package code!");
       return;
     }
 
-    // Lookup in hardcoded packageData
     const row = packageData.find(
-      (p) => p.Packages.toUpperCase() === packageCode.trim().toUpperCase()
+      (p) => p.Packages?.toUpperCase() === packageCode.trim().toUpperCase()
     );
 
     if (!row) {
@@ -291,16 +280,10 @@ function App() {
     const withTax = bucd * (1 + TAX_A) + acf * (1 + TAX_B);
     const taxValue = withTax - withoutTax;
 
-    setLeftResults({
-      bucd,
-      acf,
-      withoutTax,
-      withTax,
-      taxValue,
-    });
+    setLeftResults({ bucd, acf, withoutTax, withTax, taxValue });
   };
 
-  // RIGHT SIDE CALCULATION
+  /* ================= RIGHT CALCULATION ================= */
   const handleRightCalculate = () => {
     let numPrice = parseFloat(price);
     let aPct = parseFloat(acfPercent) / 100;
@@ -343,16 +326,14 @@ function App() {
       <div
         className="background-image"
         style={{ backgroundImage: `url(${backgroundImg})` }}
-      ></div>
+      />
 
       <div className="logo">NN.</div>
 
       <div className="main-container">
-
-        {/* LEFT SIDE */}
+        {/* ================= LEFT SIDE ================= */}
         <div className="calculator-card">
           <h2>LOOKUP ENGINE</h2>
-
           <label>Package Code</label>
           <input
             type="text"
@@ -360,51 +341,20 @@ function App() {
             onChange={(e) => setPackageCode(e.target.value)}
             placeholder="Enter package code"
           />
-
           <button onClick={handleLeftView}>View</button>
 
           <div className="results">
-            <p>BUCD: {leftResults.bucd.toFixed(2)}</p>
+            <p style={{ color: "red" }}>BUCD: {leftResults.bucd.toFixed(2)}</p>
             <p>ACF: {leftResults.acf.toFixed(2)}</p>
             <p>Without Tax: {leftResults.withoutTax.toFixed(2)}</p>
             <p>With Tax: {leftResults.withTax.toFixed(2)}</p>
             <p>Tax Value: {leftResults.taxValue.toFixed(2)}</p>
-
-            {/* Decision from backend */}
-            {packageCode.trim() !== "" && (() => {
-              const pkg = fetchedPackage.find(
-                (p) => p.PKG?.trim().toUpperCase() === packageCode.trim().toUpperCase()
-              );
-              if (pkg) {
-                return (
-                  <>
-                    <p>Decision: {pkg.Decision || "-"}</p>
-                    <p>Type: {pkg.Type || "-"}</p>
-                    <p>TRC Approval: {pkg.TRC_Approval || "-"}</p>
-                    <p>Availabl New Activation: {pkg.Available_New_Activation || "-"}</p>
-                    <p>Free Voice Bundle: {pkg.Free_Voice_Bundle  || "-"}</p>
-                    <p>Free SMS Bundle: {pkg.Free_SMS_Bundle  || "-"}</p>
-                    <p>Free Data Bundle: {pkg.Free_Dta_Bundle  || "-"}</p>
-                    <p>PCRF: {pkg.PCRF  || "-"}</p>
-                    <p>Voice Rate M2M: {pkg.Voice_Rate_M2M || "-"}</p>
-                    <p>Voice Rate M2O: {pkg.Voice_Rate_M2O || "-"}</p>
-                    <p>SMS Rate M2O: {pkg.SMS_Rate_M2O || "-"}</p>
-                    <p>MMS Rate: {pkg.MMS_Rate  || "-"}</p>
-                    <p>Data Rate: {pkg.Data_Rate  || "-"}</p>
-                    <p>Deposit: {pkg.Deposit  || "-"}</p>
-                  </>
-                );
-              } else {
-                return <p>Decision: Not found in DB</p>;
-              }
-            })()}
           </div>
         </div>
 
-        {/* RIGHT SIDE */}
+        {/* ================= RIGHT SIDE ================= */}
         <div className="calculator-card">
           <h2>TAXCAL</h2>
-
           <label>Voice Quota%:</label>
           <input
             type="number"
@@ -448,7 +398,37 @@ function App() {
             <p>Tax Value: {rightResults.taxValue.toFixed(2)}</p>
           </div>
         </div>
- Bundle</th>
+
+        {/* ================= SEARCH CARD ================= */}
+        {/* ================= SEARCH CARD ================= */}
+<div className="calculator-card search-card">
+  <h2>SEARCH PACKAGES</h2>
+  <input
+    type="text"
+    placeholder="Search packages..."
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+    style={{ padding: "10px", width: "100%", marginBottom: "15px", fontSize: "12px" }}
+  />
+
+  <div style={{ overflowX: "auto" }}>
+    <table border="1" cellPadding="6" cellSpacing="0" style={{ width: "100%", fontSize: "14px" }}>
+      <thead>
+        <tr>
+          <th>PKG</th>
+          <th>Decision</th>
+          <th>Type</th>
+          <th>TRC Approval</th>
+          <th>Available New Activation</th>
+          <th>ACF</th>
+          <th>BUCD</th>
+          <th>Rental</th>
+          <th>Voice Rate M2M</th>
+          <th>Voice Rate M2O</th>
+          <th>SMS Rate M2O</th>
+          <th>MMS Rate</th>
+          <th>Data Rate</th>
+          <th>Free Voice Bundle</th>
           <th>Free SMS Bundle</th>
           <th>Free Dta Bundle</th>
           <th>PCRF</th>
@@ -482,6 +462,7 @@ function App() {
     </table>
   </div>
 </div>
+
       </div>
     </div>
   );
