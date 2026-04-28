@@ -200,7 +200,7 @@ const packageData = [
   { "Packages": "UP499", "ACF": 99.8, "BUCD": 399.2, "RentalExcludeTax": 499, "ACFPercent": 0.2, "BUCDPercent": 0.8 },
   { "Packages": "UP727", "ACF": 145.4, "BUCD": 581.6, "RentalExcludeTax": 727, "ACFPercent": 0.2, "BUCDPercent": 0.8 },
   { "Packages": "UPASB", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
-  { "Packages": "VAL50", "ACF": 50, "BUCD": 0, "RentalExcludeTax": 50, "ACFPercent": 1.0, "BUCDPercent": null },
+  { "Packages": "VAL50", "ACF": 60, "BUCD": 0, "RentalExcludeTax": 60, "ACFPercent": 1.0, "BUCDPercent": null },
   { "Packages": "WB100", "ACF": 0, "BUCD": 0, "RentalExcludeTax": 0, "ACFPercent": null, "BUCDPercent": null },
   { "Packages": "WB200", "ACF": 0, "BUCD": 200, "RentalExcludeTax": 200, "ACFPercent": null, "BUCDPercent": 1.0 },
   { "Packages": "WNLUL", "ACF": 143.78, "BUCD": 656.39, "RentalExcludeTax": 800.17, "ACFPercent": 0.1796868, "BUCDPercent": 0.8203132 },
